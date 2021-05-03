@@ -1,40 +1,50 @@
 class DropdownList {
 
 
-  constructor(tagName, data) {
+  constructor(id, data) {
 
-    this.$el = document.querySelector(tagName)
-    this.$input = this.$el.querySelector('.dropdown-input')
-    this.$list = this.$el.querySelector('.dropdown-list')
+    this.$el = document.createElement('div')
+    this.$el.setAttribute('id', id)
+
+    this.$input = document.createElement('div')
+    this.$input.classList.add('dropdown-input')
+
+    this.$list = document.createElement('ul')
+    this.$list.classList.add('dropdown-list')
+
     this.items = data.items
+
+    document.querySelector('#app').insertAdjacentElement('afterBegin', this.$el)
+    this.$el.insertAdjacentElement('afterBegin', this.$list)
+    this.$el.insertAdjacentElement('afterBegin', this.$input)
+
     this.init()
 
-    this.$input.addEventListener('click', event => {
-      if(this.$el.className === 'open') {
-        this.close()
-      } else {
-        this.open()
-      }
-    })
-
-    document.addEventListener('click', event => {
-
-      
+    this.$el.addEventListener('click', event => {
 
       if(event.target.nodeName.toLowerCase() == 'li') {
-        
+
         const current = event.target.dataset.code
         const res = this.items.find(el => el.code === current)
         this.$input.textContent = res.name
         this.close()
 
-      }
-    })
+      } else if(event.target.classList.contains('dropdown-input')) {
 
+        if(this.$el.className === 'open') {
+            this.close()
+          } else {
+            this.open()
+          }
+
+      }
+
+    })
   }
 
   init() {
-    this.$input.textContent = this.items[0].name;
+
+    this.$input.textContent = this.items[0].name
     const list = this.items.map(item => {
       return `<li data-code='${item.code}'>${item.name}</li>`
     }).join('')
@@ -51,9 +61,7 @@ class DropdownList {
 
 }
 
-
-
-dropDownList = new DropdownList('#dropdown', {
+dropDownList = new DropdownList('dropdown', {
   items: [
     {code: 'surgut', name: 'Сургут'},
     {code: 'moscow', name: 'Москва'},
@@ -64,5 +72,3 @@ dropDownList = new DropdownList('#dropdown', {
     {code: 'sochi', name: 'Сочи'}
   ]
 })
-
-console.log(dropDownList)
