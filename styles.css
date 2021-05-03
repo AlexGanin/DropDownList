@@ -1,0 +1,45 @@
+* {
+    
+}
+
+#app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#dropdown {
+    width: 400px;
+}
+
+.dropdown-input {
+    border: 2px solid rgba(102, 102, 102, 0.123);
+    cursor: pointer;
+}
+
+
+
+.dropdown-list {
+    border: 2px solid rgba(102, 102, 102, 0.123);
+    cursor: pointer;
+    display: none;
+}
+
+    #dropdown.open .dropdown-list {
+        display: block;
+    }
+
+    .dropdown-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .dropdown-list li,
+    .dropdown-input {
+        padding: 5px 10px;
+    }
+
+    .dropdown-list li:hover {
+        background: rgb(199, 199, 199);
+    }
